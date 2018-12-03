@@ -10,7 +10,8 @@ fi
 echo -e "[CHECK]\tInstalling and enabling the SystemService\t(Telnet)"
 if [ ! -f /etc/systemd/system/DroneTelnet.service ]; then
 	sudo cp System-Services/DroneTelnet.service /etc/systemd/system/
-	sudo systemctl enable DroneTelnet.service
+	sudo systemctl enable DroneTelnet.service >/dev/null
+	sudo systemctl start DroneTelnet.service >/dev/null
 	echo -e "[CHECK]\tTelnet setten up on port 1337"
 else
 	echo -e "[CHECK]\tTelnet seems to be setten up already."
