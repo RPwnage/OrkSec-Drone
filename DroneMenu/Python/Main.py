@@ -5,7 +5,7 @@ class color:
 	CBOLD     = '\33[1m'
 	CITALIC   = '\33[3m'
 	CURL      = '\33[4m'
-	CBLINK    = '\33[5m'
+	CBLINK    = '\32[5m'
 	CBLINK2   = '\33[6m'
 	CSELECTED = '\33[7m'
 	CBLACK  = '\33[30m'
@@ -40,12 +40,29 @@ class color:
 	CVIOLETBG2 = '\33[105m'
 	CBEIGEBG2  = '\33[106m'
 	CWHITEBG2  = '\33[107m'
-
+Commands = []
+commandPath = "/root/Ork-Drone/DroneMenu/Commands/"
+for file in os.listdir(commandPath):
+        Commands.append(file)
 def clearScreen():
 	sys.stderr.write("\x1b[2J\x1b[H")
-
+def runCommand(indexNumber):
+        os.system(commandPath + Commands[indexNumber])
+def askForAction():
+        choice = input("==> ")
+        if choice <= len(Commands):
+            print "running command..."
+            runCommand(choice)
+        else:
+            print "that command does not exist!"
+            showOptions()
+def showOptions():
+        for index, commandName in enumerate(Commands):
+            print "["+str(index)+"] " + str(commandName.replace("_", " "))
+        askForAction()
 def printWelcomeScreen():
 	clearScreen()
 	print "_/#$ Welcome to the DroneShell. $#\_"
 
 printWelcomeScreen()
+showOptions()
